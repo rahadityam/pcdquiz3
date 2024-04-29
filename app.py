@@ -231,6 +231,16 @@ def closing():
     return render_template("uploaded.html", file_path="img/img_now.jpg")
 
 
+
+@app.route("/count_objects", methods=["POST"])
+@nocache
+def count_objects():
+    total_objects = image_processing.count_objects()  # Menghitung objek
+    return render_template("uploaded.html", total_objects=total_objects, file_path="img/img_now.jpg")
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
 

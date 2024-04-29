@@ -6,6 +6,7 @@ from collections import Counter
 from pylab import savefig
 import cv2
 from scipy.ndimage import convolve
+from flask import send_file
 
 
 def grayscale():
@@ -246,7 +247,6 @@ def sharpening():
     new_img.save("static/img/img_now.jpg")
 
 
-from flask import send_file
 
 def histogram_rgb():
     img_path = "static/img/img_now.jpg"
@@ -344,3 +344,42 @@ def erosion():
     kernel = np.ones((5,5),np.uint8)
     eroded_img = cv2.erode(img,kernel,iterations = 1)
     cv2.imwrite('static/img/img_now.jpg', eroded_img)
+
+def count_objects():
+    # Baca gambar sebagai grayscale
+    img = cv2.imread("static/img/img_now.jpg", 0)
+
+    # Binarisasi menggunakan metode Otsu
+    _, binary_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    # Erosi untuk memperlebar garis hitam
+    erode_kernel = np.ones((7, 7), np.uint8)
+    eroded_img = cv2.erode(binary_img, erode_kernel, iterations=1)
+
+    # Closing untuk menghilangkan noise dan memperkuat pemisahan objek
+    closing_kernel = np.ones((7, 7), np.uint8)  # Kernel lebih besar untuk closing
+    clean_img = cv2.morphologyEx(eroded_img, cv2.MORPH_CLOSE, closing_kernel)
+
+    # Hitung komponen yang terhubung dengan garis hitam yang diperkuat
+    num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(clean_img, 8, cv2.CV_32S)
+
+    # Buat array output untuk menggambarkan komponen dengan warna acak
+    height, width = clean_img.shape
+    output = np.zeros((height, width, 3), dtype=np.uint8)
+
+    # Warna acak untuk setiap label
+    colors = np.random.randint(0, 255, size=(num_labels, 3))
+
+    # Isi output dengan warna berdasarkan label
+    for label in range(1, num_labels):  # Mulai dari 1, karena label 0 adalah latar belakang
+        output[labels == label] = colors[label]
+
+    # Simpan gambar hasil connected components
+    labeled_img = Image.fromarray(output)
+    labeled_img.save("static/img/img_now.jpg")
+
+    # Kembalikan jumlah objek sebenarnya (tidak termasuk latar belakang)
+    total_objects = num_labels - 1  # Label 0 adalah latar belakang
+    print("Total Objects:", total_objects)
+
+    return total_objects
