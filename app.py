@@ -195,6 +195,39 @@ def thresholding():
     image_processing.threshold(lower_thres, upper_thres)
     return render_template("uploaded.html", file_path="img/img_now.jpg")
 
+@app.route("/dilation", methods=["POST"])
+@nocache
+def dilation():
+    image_processing.dilation()
+    return render_template("uploaded.html", file_path="img/img_now.jpg")
+
+@app.route("/erosion", methods=["POST"])
+@nocache
+def erosion():
+    image_processing.erosion()
+    return render_template("uploaded.html", file_path="img/img_now.jpg")
+
+
+@app.route("/opening", methods=["POST"])
+@nocache
+def opening():
+    # Lakukan operasi morfologi opening di sini
+    image_processing.erosion()
+    image_processing.dilation()
+    return render_template("uploaded.html", file_path="img/img_now.jpg")
+
+
+@app.route("/closing", methods=["POST"])
+@nocache
+def closing():
+    # Lakukan operasi morfologi closing di sini
+    image_processing.dilation()
+    image_processing.erosion()
+    return render_template("uploaded.html", file_path="img/img_now.jpg")
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
+
+
+

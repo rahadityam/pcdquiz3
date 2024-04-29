@@ -321,3 +321,16 @@ def threshold(lower_thres, upper_thres):
     # Buat gambar baru dari array dan simpan
     new_img = Image.fromarray(writable_img_arr)
     new_img.save("static/img/img_now.jpg")
+
+
+def dilation():
+    img = cv2.imread('static/img/img_now.jpg', 0)
+    kernel = np.ones((5,5),np.uint8)
+    dilated_img = cv2.dilate(img,kernel,iterations = 1)
+    cv2.imwrite('static/img/img_now.jpg', dilated_img)
+
+def erosion():
+    img = cv2.imread('static/img/img_now.jpg', 0)
+    kernel = np.ones((5,5),np.uint8)
+    eroded_img = cv2.erode(img,kernel,iterations = 1)
+    cv2.imwrite('static/img/img_now.jpg', eroded_img)
