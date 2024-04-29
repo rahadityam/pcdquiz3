@@ -19,6 +19,16 @@ def grayscale():
     new_img = Image.fromarray(new_arr)
     new_img.save("static/img/img_now.jpg")
 
+def otsu_thresholding():
+    # Buka gambar menggunakan OpenCV
+    img = cv2.imread("static/img/img_now.jpg", cv2.IMREAD_GRAYSCALE)
+
+    # Menggunakan Otsu's thresholding
+    _, thresholded_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    # Simpan gambar hasil thresholding
+    cv2.imwrite("static/img/img_now.jpg", thresholded_img)
+
 
 def is_grey_scale(img_path):
     im = Image.open(img_path).convert('RGB')

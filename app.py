@@ -195,6 +195,11 @@ def thresholding():
     image_processing.threshold(lower_thres, upper_thres)
     return render_template("uploaded.html", file_path="img/img_now.jpg")
 
+@app.route("/otsu_thresholding", methods=["POST"])
+@nocache
+def otsu_thresholding():
+    image_processing.otsu_thresholding()
+    return render_template("uploaded.html", file_path="img/img_now.jpg")
 @app.route("/dilation", methods=["POST"])
 @nocache
 def dilation():
