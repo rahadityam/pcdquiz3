@@ -1,0 +1,199 @@
+{% extends "layout.html" %}
+{% block body %}
+<!-- Sidebar dengan Margin -->
+
+<aside class="sidebar bg-light" style="margin-left: 15px;"> <!-- Beri margin kiri dan kanan -->
+  <div class="side-inner">
+    <!-- Menu Toggle -->
+    <div class="toggle">
+      <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span></span>
+      </a>
+    </div>
+
+    <!-- Sidebar Heading -->
+    <h2 class="sidebar-heading">Menu Utama</h2>
+
+    <!-- Accordion -->
+    <div class="accordion" id="sidebarAccordion" style="margin-left: 20px; margin-right: 40px">
+      <!-- Section Umum -->
+      <div class="card">
+        <div class="card-header" id="headingUmum">
+          <h5 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseUmum" aria-expanded="true" aria-controls="collapseUmum">
+              Umum
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapseUmum" class="collapse show" aria-labelledby="headingUmum" data-parent="#sidebarAccordion">
+          <div class="card-body">
+            <form action="{{ url_for('normal') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Normal</button>
+            </form>
+            <form action="{{ url_for('grayscale') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Grayscale</button>
+            </form>
+            <form action="{{ url_for('zoomin') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Zoom In</button>
+            </form>
+            <form action="{{ url_for('zoomout') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Zoom Out</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Pergeseran -->
+      <div class="card" margin>
+        <div class="card-header" id="headingPergeseran">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsePergeseran" aria-expanded="false" aria-controls="collapsePergeseran">
+              Pergeseran
+            </button>
+          </h5>
+        </div>
+        <div id="collapsePergeseran" class="collapse" aria-labelledby="headingPergeseran" data-parent="#sidebarAccordion">
+          <div class="card-body">
+            <form action="{{ url_for('move_left') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Geser Kiri</button>
+            </form>
+            <form action="{{ url_for('move_right') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Geser Kanan</button>
+            </form>
+            <form action="{{ url_for('move_up') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Geser Atas</button>
+            </form>
+            <form action="{{ url_for('move_down') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Geser Bawah</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Penerangan -->
+      <div class="card">
+        <div class="card-header" id="headingPenerangan">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsePenerangan" aria-expanded="false" aria-controls="collapsePenerangan">
+              Penerangan
+            </button>
+          </h5>
+        </div>
+        <div id="collapsePenerangan" class="collapse" aria-labelledby="headingPenerangan" data-parent="#sidebarAccordion">
+          <div class="card-body">
+            <form action="{{ url_for('brightness_multiplication') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Terang (*)</button>
+            </form>
+            <form action="{{ url_for('brightness_division') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Gelap (/)</button>
+            </form>
+            <form action="{{ url_for('brightness_addition') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Terang (+)</button>
+            </form>
+            <form action="{{ url_for('brightness_substraction') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Gelap (-)</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Analisis Gambar -->
+      <div class="card">
+        <div class="card-header" id="headingAnalisis">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseAnalisis" aria-expanded="false" aria-controls="collapseAnalisis">
+              Analisis Gambar
+            </button>
+          </h5>
+        </div>
+        <div id="collapseAnalisis" class="collapse" aria-labelledby="headingAnalisis" data-parent="#sidebarAccordion">
+          <div class="card-body">
+            <form action="{{ url_for('histogram_rgb') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Histogram RGB</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Pemrosesan Gambar -->
+      <div class="card">
+        <div id="headingPemrosesan" class="card-header">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsePemrosesan" aria-expanded="false" aria-controls="collapsePemrosesan">
+              Pemrosesan Gambar
+            </button>
+          </h5>
+        </div>
+        <div id="collapsePemrosesan" class="collapse" aria-labelledby="headingPemrosesan" data-parent="#sidebarAccordion">
+          <div class="card-body">
+            <form action="{{ url_for('histogram_equalizer') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Histogram Equalizer</button>
+            </form>
+            <form action="{{ url_for('edge_detection') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Edge Detection</button>
+            </form>
+            <form action="{{ url_for('blur') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Blur</button>
+            </form>
+            <form action="{{ url_for('sharpening') }}" method="POST">
+              <button type="submit" class="btn btn-primary mb-2">Sharpening</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Segmentation -->
+      <div class="card">
+        <div class="card-header" id="headingSegmentation">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSegmentation" aria-expanded="false" aria-controls="collapseSegmentation">
+              Segmentation
+            </button>
+          </h5>
+        </div>
+        <div id="collapseSegmentation" class="collapse" aria-labelledby="headingSegmentation" data-parent="#sidebarAccordion">
+          <div class="card-body">
+            <form action="{{ url_for('thresholding') }}" method="POST">
+              <div class="list-group-item" style="border: none;">
+                <input type="number" name="lower_thres" placeholder="Batas Bawah (0-255)" class="form-control">
+                <input type="number" name="upper_thres" placeholder="Batas Atas (0-255)" class="form-control">
+                <button type="submit" class="btn btn-primary mt-2">Thresholding</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- Tutup Accordion -->
+
+  </div> <!-- Tutup side-inner -->
+</aside>
+
+<!-- Main content -->
+<main>
+  <div class="site-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="container-fluid">
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h3>Hasil</h3>
+                  <img class="img-fluid" src="{{ url_for('static', filename=file_path) }}" alt="Gambar Hasil">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="static/js/jquery-3.3.1.min.js"></script>
+<script src="static/js/popper.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/main.js"></script>
+{% endblock %}
